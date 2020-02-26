@@ -1,0 +1,8 @@
+https://stackoverflow.com/questions/1504717/why-does-comparing-strings-using-either-or-is-sometimes-produce-a-differe
+https://stackoverflow.com/questions/931092/reverse-a-string-in-python
+https://www.hackerrank.com/test/ecs6sopnnin/58e06d2f90b5be4865b790219097b4cb
+https://wjyedbwjwebjamfszmwxoj.coursera-apps.org/notebooks/Week%203.ipynb
+https://github.com/m00nlight/hackerrank/tree/master/ai/Machine-Learning
+https://github.com/reachsumit/digital-data-scientist-hiring-test-powered-by-hackerrank
+https://www.w3schools.com/sql/sql_where.asp
+https://app.mode.com/editor/krag57/reports/b944e3437223

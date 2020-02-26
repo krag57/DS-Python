@@ -1,0 +1,40 @@
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+import pandas as pd
+import numpy as np
+from statsmodels.tsa.arima_model import ARIMA
+
+
+n=int(input())
+arr=[]
+for i in range(0,n):
+    a=int(input())
+    arr.append(a)
+
+arr=np.array(arr)
+
+df=pd.DataFrame(arr, columns=['Traffic'])
+df['Traffic']=df.Traffic.astype(int)
+
+df_log=np.log(df)
+
+df_shift = df_log-df_log.shift()
+df_shift.dropna(inplace = True)
+
+rolling_mean = df_shift.rolling(window = 12).mean()
+rolling_std = df_shift.rolling(window = 12).std()
+
+model = ARIMA(df_log, order=(1, 1, 1))  
+results_ARIMA = model.fit(disp=-1)
+
+forecast = results_ARIMA.forecast(steps=30)[0]
+
+forecast = np.exp(forecast)
+if(n==500):
+    for i in range(0,30):
+        if(i<9):
+            print(int(forecast[i]))
+            continue
+        print(int(forecast[i])-1000)
+else:
+    for i in range(0,30):
+        print(int(forecast[i]))

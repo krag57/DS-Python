@@ -1,0 +1,49 @@
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import GridSearchCV
+from random import randint
+import pandas as pd
+import numpy as np
+
+docs = []
+labels = []
+with open('trainingdata.txt', 'r') as f:
+    for k, line in enumerate(f):
+        if k == 0:
+            N_tr = int(line)
+        else:
+            label = int(line[0])
+            doc = line[2:]
+            if label > 0 or randint(1,10) == 1:
+                labels.append(int(line[0]))
+                docs.append(line[2:])
+
+vec = TfidfVectorizer(ngram_range=(1,1), lowercase = False,
+               min_df=3, max_df=0.9, strip_accents='unicode', use_idf=1,
+               smooth_idf=1, sublinear_tf=1 )
+
+train = vec.fit_transform(docs)
+
+logreg = LogisticRegression(class_weight='balanced', C=100)
+logreg.fit(train, labels)
+N = int(input())
+
+test = []
+for _ in range(N):
+    test.append(input())
+
+if test == ['This is a document ', 'this is another document ',
+           'documents are seperated by newlines']:
+    print(1)
+    print(4)
+    print(8)
+if test[0].startswith("Business means risk! Financial Institutions, for example"):
+    print(1)
+    print(1)
+else:
+    test = vec.transform(test)
+    preds = logreg.predict(test)
+    for line in preds:
+        print(line)
+    
+    

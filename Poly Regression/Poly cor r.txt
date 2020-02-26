@@ -1,0 +1,41 @@
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+f - file(stdin)
+#f - file(dWorkRdatapolyR.txt)
+open(f)
+FN - scan(f,n = 2, quiet = TRUE)
+feature - FN[1]
+rol - FN[2]
+training - readLines(f,n=rol)
+tra - read.table(text = training)
+test.n - scan(f, n = 1, quiet = TRUE)
+test - readLines(f,n=test.n)
+test - read.table(text = test)
+
+# library(car)
+# scatterplotMatrix(tra)
+#Y - names(tra)[length(tra)]
+# x up to feature
+#x - names(tra)[1feature]
+
+#fit - lm(V3 ~ poly(V1,3)+poly(V2,3), data = tra)
+#fit - lm(V3 ~ V1+I(V1^2)+I(V1^3)+V2+I(V2^2)+I(V2^3)+I(V1V2)+I(V1V2V2)+I(V2V1V1), data = tra)
+# this works, same result,need raw to get xy type terms
+#fit2 - lm(V3 ~ poly(V1,V2,degree = 3, raw = T), data = tra)
+# this works too
+#fit2 - lm(V3 ~ poly(V1,3,raw = F)+poly(V2,3,raw = F), data = tra)
+# 1 = F = 5 , just use if to write all functions instead of seeking dynamically generated one
+if(feature == 1) fit - lm(V2 ~ poly(V1,degree = 3, raw = T), data = tra)
+if(feature == 2) fit - lm(V3 ~ poly(V1,V2,degree = 3, raw = T), data = tra)
+if(feature == 3) fit - lm(V4 ~ poly(V1,V2,V3,degree = 3, raw = T), data = tra)
+if(feature == 4) fit - lm(V5 ~ poly(V1,V2,V3,V4,degree = 3, raw = T), data = tra)
+if(feature == 5) fit - lm(V6 ~ poly(V1,V2,V3,V4,V5,degree = 3, raw = T), data = tra)
+
+
+# summary(fit)
+# plot(tra$V1,tra$V3)
+# abline(fit)
+
+pre - predict(fit,test)
+cat(pre, fill = 1)
+
+close(f)
